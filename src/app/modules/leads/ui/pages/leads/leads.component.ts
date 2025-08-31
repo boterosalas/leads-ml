@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { LeadsUsecaseService } from '../../../domain/leads/usecase/leads-usecase.service';
 
 @Component({
   selector: 'app-leads',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './leads.component.html',
   styleUrl: './leads.component.scss',
 })
-export class LeadsComponent {}
+export class LeadsComponent implements OnInit {
+  leadsService = inject(LeadsUsecaseService);
+
+  ngOnInit(): void {
+    this.leadsService.getCode('8315944344732576');
+  }
+}
