@@ -12,8 +12,4 @@ export class LeadsUsecaseService {
   get(params: any): Observable<Leads> {
     return this._leadsGatewayService.get(params);
   }
-
-  getCode(clientId: string): void {
-    return this._leadsGatewayService.getCode(clientId);
-  }
 }

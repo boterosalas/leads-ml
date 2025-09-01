@@ -10,7 +10,5 @@ import { LeadsUsecaseService } from '../../../domain/leads/usecase/leads-usecase
 export class LeadsComponent implements OnInit {
   leadsService = inject(LeadsUsecaseService);
 
-  ngOnInit(): void {
-    this.leadsService.getCode('8315944344732576');
-  }
+  ngOnInit(): void {}
 }
