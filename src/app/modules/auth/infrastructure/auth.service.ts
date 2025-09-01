@@ -22,6 +22,9 @@ export class AuthService implements AuthGatewayService {
       client_id: '8315944344732576',
       client_secret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
     };
-    return this._httpClient.post('', params);
+    return this._httpClient.post(
+      'https://api.mercadolibre.com/oauth/token',
+      params
+    );
   }
 }
