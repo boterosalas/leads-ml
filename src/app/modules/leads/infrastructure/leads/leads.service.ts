@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LeadsGatewayService } from '../../domain/leads/gateway/leads.service';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Leads } from '../../domain/leads/models/leads.model';
   providedIn: 'root',
 })
 export class LeadsService implements LeadsGatewayService {
-  constructor(private readonly _httpClient: HttpClient) {}
+  private readonly _httpClient = inject(HttpClient);
 
   get(params: any): Observable<Leads> {
     const userId = 1;

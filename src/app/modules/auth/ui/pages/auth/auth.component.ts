@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AuthUsecaseService } from '../../../domain/usecase/auth-usecase.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-auth',
@@ -11,20 +12,35 @@ import { ActivatedRoute } from '@angular/router';
 export class AuthComponent implements OnInit {
   private _authUsecaseService = inject(AuthUsecaseService);
   private _activatedRoute = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _location = inject(Location);
 
   ngOnInit(): void {
     this.listenToCode();
   }
 
-  listenToCode() {
+  getCode() {
+    this._authUsecaseService.getCode('8315944344732576');
+  }
+
+  private listenToCode() {
     this._activatedRoute.queryParams.subscribe((params) => {
       const code = params['code'] || null;
-      console.log('Code recibido:', code);
-      // TODO: Después de obtener el código se debe llamar el servicio del login
+      if (code) {
+        // TODO: Después de obtener el código se debe llamar el servicio del login
+        this.reInitUrl;
+        this.getToken(code);
+      }
     });
   }
 
-  getCode() {
-    this._authUsecaseService.getCode('8315944344732576');
+  private getToken(code: string) {
+    this._authUsecaseService.getToken(code).subscribe((data) => {
+      console.log({ data });
+    });
+  }
+
+  private reInitUrl() {
+    this._location.replaceState(this._router.url.split('?')[0]);
   }
 }
