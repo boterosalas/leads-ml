@@ -23,6 +23,7 @@ export class AuthComponent implements OnInit {
   }
 
   getCode() {
+    console.log('getCode desde el componente');
     this._authUsecaseService.getCode();
   }
 
@@ -31,6 +32,7 @@ export class AuthComponent implements OnInit {
       const code = params['code'] || null;
       if (code) {
         // TODO: Después de obtener el código se debe llamar el servicio para obtener access_token
+        console.log('code', code);
         this.reInitUrl();
         this.getToken(code);
       }

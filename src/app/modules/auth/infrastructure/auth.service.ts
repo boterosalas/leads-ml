@@ -14,6 +14,7 @@ export class AuthService implements AuthGatewayService {
     'https://2o8i6bmmue.execute-api.us-east-1.amazonaws.com/MeliDevStage/trigger';
 
   getCode() {
+    console.log('getCode desde el servicio');
     window.location.href = `https://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${environments.clientId}&redirect_uri=${environments.redirectUri}`;
   }
 
