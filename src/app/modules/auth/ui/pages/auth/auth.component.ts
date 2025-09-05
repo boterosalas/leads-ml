@@ -2,6 +2,8 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthUsecaseService } from '../../../domain/usecase/auth-usecase.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ProxyRequest } from '../../../domain/models/proxy.model';
+import { environments } from '../../../../../../environments/environments';
 
 @Component({
   selector: 'app-auth',
@@ -17,18 +19,19 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     this.listenToCode();
+    // this.callProxy();
   }
 
   getCode() {
-    this._authUsecaseService.getCode('8315944344732576');
+    this._authUsecaseService.getCode();
   }
 
   private listenToCode() {
     this._activatedRoute.queryParams.subscribe((params) => {
       const code = params['code'] || null;
       if (code) {
-        // TODO: Después de obtener el código se debe llamar el servicio del login
-        this.reInitUrl;
+        // TODO: Después de obtener el código se debe llamar el servicio para obtener access_token
+        this.reInitUrl();
         this.getToken(code);
       }
     });
@@ -41,6 +44,33 @@ export class AuthComponent implements OnInit {
   }
 
   private reInitUrl() {
+    console.log('reInitUrl');
     this._location.replaceState(this._router.url.split('?')[0]);
+  }
+
+  callProxy() {
+    const request: ProxyRequest = {
+      method: 'POST',
+      url: 'https://api.mercadolibre.com/oauth/token',
+      data: {
+        code: 'TG-68b8f5346421e700011698d2-2651263697',
+        grant_type: 'authorization_code',
+        redirect_uri: environments.redirectUri,
+        client_id: '8315944344732576',
+        client_secret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    this._authUsecaseService.callProxy(request).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error('Error desde proxy:', err);
+      },
+    });
   }
 }
