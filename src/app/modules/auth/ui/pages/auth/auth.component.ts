@@ -34,13 +34,13 @@ export class AuthComponent implements OnInit {
         // TODO: Después de obtener el código se debe llamar el servicio para obtener access_token
         console.log('code', code);
         this.reInitUrl();
-        this.getToken(code);
+        this.getAccessToken(code);
       }
     });
   }
 
-  private getToken(code: string) {
-    this._authUsecaseService.getToken(code).subscribe((data) => {
+  private getAccessToken(code: string) {
+    this._authUsecaseService.getAccessToken(code).subscribe((data) => {
       console.log({ data });
     });
   }
@@ -48,31 +48,5 @@ export class AuthComponent implements OnInit {
   private reInitUrl() {
     console.log('reInitUrl');
     this._location.replaceState(this._router.url.split('?')[0]);
-  }
-
-  callProxy() {
-    const request: ProxyRequest = {
-      method: 'POST',
-      url: 'https://api.mercadolibre.com/oauth/token',
-      data: {
-        code: 'TG-68b8f5346421e700011698d2-2651263697',
-        grant_type: 'authorization_code',
-        redirect_uri: environments.redirectUri,
-        client_id: '8315944344732576',
-        client_secret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
-      },
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    this._authUsecaseService.callProxy(request).subscribe({
-      next: (res) => {
-        console.log(res);
-      },
-      error: (err) => {
-        console.error('Error desde proxy:', err);
-      },
-    });
   }
 }

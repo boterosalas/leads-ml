@@ -6,18 +6,18 @@ import { ProxyRequest } from '../models/proxy.model';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthUsecaseService {
+export class AuthUsecaseService implements AuthGatewayService {
   constructor(private readonly _authGatewayService: AuthGatewayService) {}
 
   getCode(): void {
     return this._authGatewayService.getCode();
   }
 
-  getToken(code: string): Observable<any> {
-    return this._authGatewayService.getToken(code);
+  getAccessToken(code: string): Observable<any> {
+    return this._authGatewayService.getAccessToken(code);
   }
 
-  callProxy<T>(request: ProxyRequest): Observable<T> {
-    return this._authGatewayService.callProxy(request);
+  useProxy<T>(request: ProxyRequest): Observable<T> {
+    return this._authGatewayService.useProxy(request);
   }
 }
