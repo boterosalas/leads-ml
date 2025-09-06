@@ -36,7 +36,7 @@ export class AuthService implements AuthGatewayService {
     };
     return this.useProxy<any>(request).pipe(
       tap((res: any) => {
-        this.token = res.accessToken;
+        this.token = res.access_token;
         console.log(`token: ${this.token}`);
       })
     );
