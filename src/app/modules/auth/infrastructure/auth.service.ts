@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { AuthGatewayService } from '../domain/gateway/auth.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../../environments/environments';
 import { ProxyRequest, ProxyResponse } from '../domain/models/proxy.model';
@@ -12,6 +12,7 @@ export class AuthService implements AuthGatewayService {
   private readonly _httpClient = inject(HttpClient);
   private readonly apiUrl =
     'https://2o8i6bmmue.execute-api.us-east-1.amazonaws.com/MeliDevStage/trigger';
+  token = '';
 
   getCode() {
     console.log('getCode desde el servicio');
@@ -33,7 +34,11 @@ export class AuthService implements AuthGatewayService {
         'Content-Type': 'application/json',
       },
     };
-    return this.useProxy(request);
+    return this.useProxy<any>(request).pipe(
+      tap((res: any) => {
+        this.token = res.accessToken;
+      })
+    );
   }
 
   useProxy<T>(request: ProxyRequest): Observable<T> {
@@ -50,5 +55,17 @@ export class AuthService implements AuthGatewayService {
         return parsed;
       })
     );
+  }
+
+  getLeads() {
+    const request: ProxyRequest = {
+      method: 'GET',
+      url: 'https://api.mercadolibre.com/oauth/token',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+      },
+    };
+    return this.useProxy(request);
   }
 }

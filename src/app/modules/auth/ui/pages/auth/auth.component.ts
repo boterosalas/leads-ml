@@ -39,6 +39,12 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  getLeads() {
+    this._authUsecaseService.getLeads().subscribe((data) => {
+      console.log({ data });
+    });
+  }
+
   private getAccessToken(code: string) {
     this._authUsecaseService.getAccessToken(code).subscribe((data) => {
       console.log({ data });
