@@ -47,6 +47,7 @@ export class AuthService implements AuthGatewayService {
   useProxy<T>(request: ProxyRequest): Observable<T> {
     return this._httpClient.post<ProxyResponse<T>>(this.apiUrl, request).pipe(
       map((res) => {
+        console.log({ proxy: res });
         // En tu Lambda, body viene en string → parseamos
         let parsed: any;
         try {
