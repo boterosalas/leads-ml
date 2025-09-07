@@ -30,7 +30,7 @@ export class AuthService implements AuthGatewayService {
         grant_type: 'authorization_code',
         redirect_uri: environments.redirectUri,
         client_id: clientId,
-        client_secret: clientSecret,
+        client_secret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
       },
       headers: {
         'Content-Type': 'application/json',

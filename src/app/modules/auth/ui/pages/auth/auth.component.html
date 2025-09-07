@@ -5,14 +5,14 @@
       <div class="form-field">
         <mat-form-field appearance="outline">
           <mat-label>Client ID</mat-label>
-          <input matInput />
+          <input matInput [formControl]="clientIdControl" />
           <mat-icon matSuffix>fingerprint</mat-icon>
         </mat-form-field>
       </div>
       <div class="form-field">
         <mat-form-field appearance="outline">
           <mat-label>Client Secret</mat-label>
-          <input matInput />
+          <input matInput [formControl]="clientSecretControl" />
           <mat-icon matSuffix>key</mat-icon>
         </mat-form-field>
       </div>
