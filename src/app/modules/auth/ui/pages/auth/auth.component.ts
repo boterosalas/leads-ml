@@ -62,8 +62,8 @@ export class AuthComponent implements OnInit {
   }
 
   private getAccessToken(code: string) {
-    this._authUsecaseService.getAccessToken(code).subscribe((data) => {
-      console.log({ data });
+    this._authUsecaseService.getAccessToken(code).subscribe((token) => {
+      localStorage.setItem('token', JSON.stringify(token));
       this._router.navigateByUrl('/leads');
     });
   }

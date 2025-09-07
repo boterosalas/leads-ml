@@ -13,7 +13,6 @@ export class AuthService implements AuthGatewayService {
   private readonly _httpClient = inject(HttpClient);
   private readonly apiUrl =
     'https://2o8i6bmmue.execute-api.us-east-1.amazonaws.com/MeliDevStage/trigger';
-  token = '';
 
   getCode(clientId: string) {
     window.location.href = `https://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${clientId}&redirect_uri=${environments.redirectUri}`;
@@ -38,11 +37,8 @@ export class AuthService implements AuthGatewayService {
       },
     };
     return this.useProxy<any>(request).pipe(
-      tap((res: any) => {
-        if (res) {
-          this.token = res.access_token;
-          console.log(`token: ${this.token}`);
-        }
+      tap((token) => {
+        console.log('token from getAccessToken', token);
       })
     );
   }
@@ -61,11 +57,12 @@ export class AuthService implements AuthGatewayService {
   // }
 
   getMe() {
+    const { access_token } = JSON.parse(`${localStorage.getItem('token')}`);
     const request: ProxyRequest = {
       method: 'GET',
       url: 'https://api.mercadolibre.com/users/me',
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${access_token}`,
       },
     };
     return this.useProxy<User>(request);
