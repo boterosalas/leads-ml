@@ -1,4 +1,3 @@
-// src/app/models/proxy-request.model.ts
 export interface ProxyRequest {
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   url: string;

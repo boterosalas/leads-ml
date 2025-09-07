@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AuthGatewayService } from '../gateway/auth.service';
+import { AuthGatewayService } from '../gateway/auth-gateway.service';
 import { Observable } from 'rxjs';
-import { ProxyRequest } from '../models/proxy.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +14,5 @@ export class AuthUsecaseService implements AuthGatewayService {
 
   getAccessToken(code: string): Observable<any> {
     return this._authGatewayService.getAccessToken(code);
-  }
-
-  useProxy<T>(request: ProxyRequest): Observable<T> {
-    return this._authGatewayService.useProxy(request);
   }
 }

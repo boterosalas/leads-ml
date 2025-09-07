@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:github": "ng build --base-href '/leads-ml/'",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:leads-ml": "node dist/leads-ml/server/server.mjs"

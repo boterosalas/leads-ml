@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Leads } from '../models/leads.model';
+import { LeadsResponse } from '../models/leads.model';
 
 export abstract class LeadsGatewayService {
-  abstract get(params: any): Observable<Leads>;
+  abstract get(params: any): Observable<LeadsResponse>;
 }

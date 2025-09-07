@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { authRoutes } from './auth.routes';
 import { AuthUsecaseService } from './domain/usecase/auth-usecase.service';
-import { AuthGatewayService } from './domain/gateway/auth.service';
+import { AuthGatewayService } from './domain/gateway/auth-gateway.service';
 import { AuthService } from './infrastructure/auth.service';
 
 @NgModule({

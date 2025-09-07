@@ -1,18 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import { AuthGatewayService } from '../domain/gateway/auth.service';
-import { Observable, map, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { AuthGatewayService } from '../domain/gateway/auth-gateway.service';
+import { Observable, map, tap, throwError } from 'rxjs';
 import { environments } from '../../../../environments/environments';
-import { ProxyRequest } from '../domain/models/proxy.model';
+import { ProxyRequest } from '../../../core/models/proxy.model';
 import { User } from '../domain/models/user.model';
+import { ProxyService } from '../../../core/services/proxy/proxy.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService implements AuthGatewayService {
-  private readonly _httpClient = inject(HttpClient);
-  private readonly apiUrl =
-    'https://2o8i6bmmue.execute-api.us-east-1.amazonaws.com/MeliDevStage/trigger';
+  private _proxy = inject(ProxyService);
 
   getCode(clientId: string) {
     window.location.href = `https://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${clientId}&redirect_uri=${environments.redirectUri}`;
@@ -36,7 +34,7 @@ export class AuthService implements AuthGatewayService {
         'Content-Type': 'application/json',
       },
     };
-    return this.useProxy<any>(request).pipe(
+    return this._proxy.useProxy<any>(request).pipe(
       tap((token) => {
         console.log('token from getAccessToken', token);
       })
@@ -57,18 +55,18 @@ export class AuthService implements AuthGatewayService {
   // }
 
   getMe() {
-    const { access_token } = JSON.parse(`${localStorage.getItem('token')}`);
-    const request: ProxyRequest = {
-      method: 'GET',
-      url: 'https://api.mercadolibre.com/users/me',
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    };
-    return this.useProxy<User>(request);
-  }
-
-  useProxy<T>(request: ProxyRequest): Observable<T> {
-    return this._httpClient.post<T>(this.apiUrl, request);
+    const token = localStorage.getItem('token');
+    if (token) {
+      const { access_token } = JSON.parse(token);
+      const request: ProxyRequest = {
+        method: 'GET',
+        url: 'https://api.mercadolibre.com/users/me',
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      };
+      return this._proxy.useProxy<User>(request);
+    }
+    return throwError(() => new Error('No token provided'));
   }
 }

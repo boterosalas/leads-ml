@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { AuthUsecaseService } from '../../../domain/usecase/auth-usecase.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ProxyRequest } from '../../../domain/models/proxy.model';
+import { ProxyRequest } from '../../../../../core/models/proxy.model';
 import { environments } from '../../../../../../environments/environments';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
