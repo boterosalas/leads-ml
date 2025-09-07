@@ -47,9 +47,8 @@ export class AuthService implements AuthGatewayService {
   getLeads() {
     const request: ProxyRequest = {
       method: 'GET',
-      url: 'https://api.mercadolibre.com/oauth/token',
+      url: 'https://api.mercadolibre.com/vis/users/2651263697/leads/buyers',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${this.token}`,
       },
     };

@@ -3,6 +3,8 @@ ESTA VERSIÓN CONSUME SOLO EL SERVICIO QUE RETORNA EL ACCESS_TOKEN
 const { Buffer } = require("buffer");
 
 module.exports.handler = async (event) => {
+  console.log('EVENT', event);
+
   try {
     let body = {};
     if (event.body) {
@@ -38,7 +40,7 @@ module.exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://boterosalas.github.io",
         "Access-Control-Allow-Credentials": true,
       },
       body: JSON.stringify(data),
@@ -48,7 +50,7 @@ module.exports.handler = async (event) => {
     return {
       statusCode: 500,
       headers: {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "https://boterosalas.github.io",
         "Access-Control-Allow-Credentials": true,
       },
       body: JSON.stringify({
