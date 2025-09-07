@@ -3,7 +3,7 @@ import { AuthGatewayService } from '../domain/gateway/auth.service';
 import { Observable, map, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../../environments/environments';
-import { ProxyRequest, ProxyResponse } from '../domain/models/proxy.model';
+import { ProxyRequest } from '../domain/models/proxy.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,23 +44,6 @@ export class AuthService implements AuthGatewayService {
     );
   }
 
-  useProxy<T>(request: ProxyRequest): Observable<T> {
-    return this._httpClient.post<ProxyResponse<T>>(this.apiUrl, request).pipe(
-      map((res) => {
-        console.log({ proxy: res });
-        // En tu Lambda, body viene en string → parseamos
-        let parsed: any;
-        try {
-          parsed =
-            typeof res.body === 'string' ? JSON.parse(res.body) : res.body;
-        } catch {
-          parsed = res.body;
-        }
-        return parsed;
-      })
-    );
-  }
-
   getLeads() {
     const request: ProxyRequest = {
       method: 'GET',
@@ -71,5 +54,9 @@ export class AuthService implements AuthGatewayService {
       },
     };
     return this.useProxy(request);
+  }
+
+  useProxy<T>(request: ProxyRequest): Observable<T> {
+    return this._httpClient.post<T>(this.apiUrl, request);
   }
 }

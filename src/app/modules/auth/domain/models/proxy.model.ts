@@ -6,9 +6,3 @@ export interface ProxyRequest {
   data?: any; // body para POST, PUT, PATCH
   headers?: Record<string, string>;
 }
-
-// src/app/models/proxy-response.model.ts
-export interface ProxyResponse<T = any> {
-  statusCode: number;
-  body: T;
-}
