@@ -16,12 +16,12 @@ export class LeadsService implements LeadsGatewayService {
     const token = localStorage.getItem('token');
     if (token) {
       const { access_token } = JSON.parse(token);
-      const { userId } = JSON.parse(localStorage.getItem('user') || '') || {
-        userId: '',
+      const { id } = JSON.parse(localStorage.getItem('user') || '') || {
+        id: '',
       };
       const request: ProxyRequest = {
         method: 'GET',
-        url: `https://api.mercadolibre.com/vis/users/${userId}/leads/buyers`,
+        url: `https://api.mercadolibre.com/vis/users/${id}/leads/buyers`,
         // data: {
         //   offset: 0,
         //   limit: 10,
