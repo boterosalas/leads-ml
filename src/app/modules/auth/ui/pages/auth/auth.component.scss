@@ -1,0 +1,46 @@
+.auth-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background: #00c9ff;
+  background: linear-gradient(45deg, #00c9ff 0%, #92fe9d 100%);
+  padding: 16px;
+  .form-container {
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    max-height: 90vh;
+    overflow: auto;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 50px 40px;
+    .form-title {
+      font-size: 4rem;
+      font-weight: bold;
+      color: #003965;
+      text-align: center;
+    }
+    .form-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: sticky;
+      z-index: 1;
+      .form-field {
+        width: 100%;
+        .mat-mdc-form-field {
+          width: 100%;
+        }
+      }
+      .form__btn-connect {
+        background: #003965;
+      }
+    }
+  }
+}

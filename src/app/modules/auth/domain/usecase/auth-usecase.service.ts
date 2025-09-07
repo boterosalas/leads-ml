@@ -9,8 +9,8 @@ import { ProxyRequest } from '../models/proxy.model';
 export class AuthUsecaseService implements AuthGatewayService {
   constructor(private readonly _authGatewayService: AuthGatewayService) {}
 
-  getCode(): void {
-    return this._authGatewayService.getCode();
+  getCode(clientId: string): void {
+    return this._authGatewayService.getCode(clientId);
   }
 
   getAccessToken(code: string): Observable<any> {

@@ -14,12 +14,14 @@ export class AuthService implements AuthGatewayService {
     'https://2o8i6bmmue.execute-api.us-east-1.amazonaws.com/MeliDevStage/trigger';
   token = '';
 
-  getCode() {
-    console.log('getCode desde el servicio');
-    window.location.href = `https://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${environments.clientId}&redirect_uri=${environments.redirectUri}`;
+  getCode(clientId: string) {
+    window.location.href = `https://auth.mercadolibre.com.co/authorization?response_type=code&client_id=${clientId}&redirect_uri=${environments.redirectUri}`;
   }
 
   getAccessToken<T>(code: string): Observable<T> {
+    const { clientId, clientSecret } = JSON.parse(
+      `${localStorage.getItem('keys')}`
+    );
     const request: ProxyRequest = {
       method: 'POST',
       url: 'https://api.mercadolibre.com/oauth/token',
@@ -27,8 +29,8 @@ export class AuthService implements AuthGatewayService {
         code,
         grant_type: 'authorization_code',
         redirect_uri: environments.redirectUri,
-        client_id: '8315944344732576',
-        client_secret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
+        client_id: clientId,
+        client_secret: clientSecret,
       },
       headers: {
         'Content-Type': 'application/json',

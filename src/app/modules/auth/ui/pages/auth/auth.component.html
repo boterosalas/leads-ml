@@ -1,3 +1,24 @@
-<h1>Auth</h1>
-<button (click)="getCode()">getCode</button>
-<button (click)="getLeads()">getLeads</button>
+<section class="auth-section">
+  <div class="form-container">
+    <form class="form-group">
+      <h1 class="form-title">Conexión API</h1>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Client ID</mat-label>
+          <input matInput />
+          <mat-icon matSuffix>fingerprint</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Client Secret</mat-label>
+          <input matInput />
+          <mat-icon matSuffix>key</mat-icon>
+        </mat-form-field>
+      </div>
+      <button class="form__btn-connect" mat-flat-button (click)="connect()">
+        Conectar
+      </button>
+    </form>
+  </div>
+</section>
