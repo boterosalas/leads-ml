@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LeadsResponse } from '../models/leads.model';
 

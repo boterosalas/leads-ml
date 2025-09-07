@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LeadsGatewayService } from '../gateway/leads.service';
+import { LeadsGatewayService } from '../gateway/leads-gateway.service';
 import { Observable } from 'rxjs';
 import { LeadsResponse } from '../models/leads.model';
 
