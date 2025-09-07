@@ -17,10 +17,6 @@ export class AuthUsecaseService implements AuthGatewayService {
     return this._authGatewayService.getAccessToken(code);
   }
 
-  getLeads(): Observable<any> {
-    return this._authGatewayService.getLeads();
-  }
-
   useProxy<T>(request: ProxyRequest): Observable<T> {
     return this._authGatewayService.useProxy(request);
   }

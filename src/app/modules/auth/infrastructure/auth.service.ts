@@ -4,6 +4,7 @@ import { Observable, map, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environments } from '../../../../environments/environments';
 import { ProxyRequest } from '../domain/models/proxy.model';
+import { User } from '../domain/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class AuthService implements AuthGatewayService {
         grant_type: 'authorization_code',
         redirect_uri: environments.redirectUri,
         client_id: clientId,
-        client_secret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
+        client_secret: clientSecret,
       },
       headers: {
         'Content-Type': 'application/json',
@@ -46,15 +47,28 @@ export class AuthService implements AuthGatewayService {
     );
   }
 
-  getLeads() {
+  // {
+  // getLeads() {
+  //   const request: ProxyRequest = {
+  //     method: 'GET',
+  //     url: 'https://api.mercadolibre.com/vis/users/2651263697/leads/buyers',
+  //     headers: {
+  //       Authorization: `Bearer ${this.token}`,
+  //     },
+  //   };
+  //   return this.useProxy(request);
+  // }
+  // }
+
+  getMe() {
     const request: ProxyRequest = {
       method: 'GET',
-      url: 'https://api.mercadolibre.com/vis/users/2651263697/leads/buyers',
+      url: 'https://api.mercadolibre.com/users/me',
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
     };
-    return this.useProxy(request);
+    return this.useProxy<User>(request);
   }
 
   useProxy<T>(request: ProxyRequest): Observable<T> {

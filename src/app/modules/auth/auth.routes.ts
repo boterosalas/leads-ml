@@ -5,5 +5,6 @@ export const authRoutes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    pathMatch: 'full'
   },
 ];
