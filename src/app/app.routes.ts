@@ -12,7 +12,7 @@ export const routes: Routes = [
     path: 'leads',
     loadChildren: () =>
       import('./modules/leads/leads.module').then((m) => m.LeadsModule),
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
   },
   {
     path: '**',

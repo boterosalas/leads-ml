@@ -1,0 +1,81 @@
+<div class="leads-filter">
+  <h3>Filtrar por:</h3>
+  <form class="leads-filter__form">
+    <!-- Rango de fechas -->
+    <mat-form-field class="leads-filter__form-field" appearance="outline">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input
+          matStartDate
+          placeholder="Start date"
+          [formControl]="startDateControl"
+        />
+        <input
+          matEndDate
+          placeholder="End date"
+          [formControl]="endDateControl"
+        />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="rangePicker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button mat-raised-button matDateRangePickerApply>Apply</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+    <!-- Tipo de contacto -->
+    <mat-form-field class="leads-filter__form-field" appearance="outline">
+      <mat-label>Contact types</mat-label>
+      <mat-select name="food" [formControl]="contactTypeControl">
+        @for (type of contactTypes; track type) {
+        <mat-option [value]="type.value">{{ type.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <!-- Item ID -->
+    <mat-form-field class="leads-filter__form-field" appearance="outline">
+      <mat-label>Item Id</mat-label>
+      <input matInput type="text" [formControl]="itemIdControl" />
+      @if (itemIdControl.value) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="itemIdControl.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+    <!-- Buyer ID -->
+    <mat-form-field class="leads-filter__form-field" appearance="outline">
+      <mat-label>Buyer Id(s)</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Ingresa buyer ids">
+        @for (buyerId of buyerIds(); track buyerId) {
+        <mat-chip-row
+          (removed)="remove(buyerId)"
+          [editable]="true"
+          [aria-description]="'press enter to edit ' + buyerId"
+        >
+          {{ buyerId }}
+          <button matChipRemove [attr.aria-label]="'remove ' + buyerId">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+        <input
+          placeholder="Buyer Id..."
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-grid>
+    </mat-form-field>
+  </form>
+</div>

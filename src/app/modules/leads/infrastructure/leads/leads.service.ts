@@ -1,10 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LeadsGatewayService } from '../../domain/leads/gateway/leads-gateway.service';
-import { Observable, throwError } from 'rxjs';
-import { LeadsResponse } from '../../domain/leads/models/leads.model';
+import { LeadsGatewayService } from '../../domain/gateway/leads/leads-gateway.service';
+import { Observable, of, throwError } from 'rxjs';
+import { LeadsResponse } from '../../domain/models/leads.model';
 import { ProxyService } from '../../../../core/services/proxy/proxy.service';
 import { ProxyRequest } from '../../../../core/models/proxy.model';
+import { MockLeadsResponse } from '../../domain/mocks/leads';
 
 @Injectable({
   providedIn: 'root',
@@ -13,30 +14,31 @@ export class LeadsService implements LeadsGatewayService {
   private _proxy = inject(ProxyService);
 
   get(params: any): Observable<LeadsResponse> {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const { access_token } = JSON.parse(token);
-      const { id } = JSON.parse(localStorage.getItem('user') || '') || {
-        id: '',
-      };
-      const request: ProxyRequest = {
-        method: 'GET',
-        url: `https://api.mercadolibre.com/vis/users/${id}/leads/buyers`,
-        // data: {
-        //   offset: 0,
-        //   limit: 10,
-        //   dateFrom: 1,
-        //   dateTo: 1,
-        //   contactTypes: 1,
-        // },
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${access_token}`,
-        },
-      };
-      return this._proxy.useProxy<any>(request);
-    }
-    return throwError(() => new Error('No token provided'));
+    return of(MockLeadsResponse);
+    // const token = localStorage.getItem('token');
+    // if (token) {
+    //   const { access_token } = JSON.parse(token);
+    //   const { id } = JSON.parse(localStorage.getItem('user') || '') || {
+    //     id: '',
+    //   };
+    //   const request: ProxyRequest = {
+    //     method: 'GET',
+    //     url: `https://api.mercadolibre.com/vis/users/${id}/leads/buyers`,
+    //     // data: {
+    //     //   offset: 0,
+    //     //   limit: 10,
+    //     //   dateFrom: 1,
+    //     //   dateTo: 1,
+    //     //   contactTypes: 1,
+    //     // },
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       Authorization: `Bearer ${access_token}`,
+    //     },
+    //   };
+    //   return this._proxy.useProxy<any>(request);
+    // }
+    // return throwError(() => new Error('No token provided'));
   }
 
   addHeaderToken(token: string) {

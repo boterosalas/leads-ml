@@ -1,17 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "leads-filter";
 * {
   box-sizing: border-box;
 }
 html,
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 body {
   width: 100vw;
   height: 100vh;
   background: #00c9ff;
   background: linear-gradient(45deg, #00c9ff 0%, #92fe9d 100%);
   overflow: auto;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-attachment: fixed;
 }

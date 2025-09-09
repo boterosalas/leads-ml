@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { leadsRoutes } from './leads.routes';
-import { LeadsUsecaseService } from './domain/leads/usecase/leads-usecase.service';
-import { LeadsGatewayService } from './domain/leads/gateway/leads-gateway.service';
+import { LeadsUsecaseService } from './domain/usecase/leads/leads-usecase.service';
+import { LeadsGatewayService } from './domain/gateway/leads/leads-gateway.service';
 import { LeadsService } from './infrastructure/leads/leads.service';
 
 @NgModule({

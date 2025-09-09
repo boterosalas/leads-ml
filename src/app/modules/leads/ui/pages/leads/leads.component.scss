@@ -1,0 +1,29 @@
+@import "variables";
+.leads-section {
+  padding: 130px 32px;
+  .leads-section__table {
+    @include primarySectionContainer;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 32px;
+    .leads-table__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .leads_table__button-download {
+        background-color: $primary-blue !important;
+        color: #fff;
+        border-radius: 12px;
+        margin-right: 12px;
+        &:last-child {
+          margin-right: 0px;
+        }
+        .leads-table__button-label {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

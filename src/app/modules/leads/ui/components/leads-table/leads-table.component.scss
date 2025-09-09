@@ -1,0 +1,14 @@
+@import "variables";
+.leads-table-container {
+  border-radius: 12px;
+  overflow: hidden;
+  @include primarySectionContainer;
+  .leads-table {
+    max-height: 70vh;
+    overflow: auto;
+  }
+  .mat-mdc-table,
+  .mat-mdc-paginator {
+    background-color: #fff;
+  }
+}

@@ -5,8 +5,13 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'leads-ml';
+  constructor() {
+    console.log({
+      clientId: '8315944344732576',
+      clientSecret: 'rAsZB2GwlsivbGp4GE5CANWw0ulMTizu',
+    });
+  }
 }

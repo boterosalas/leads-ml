@@ -1,3 +1,4 @@
+@import "variables";
 .auth-section {
   display: flex;
   flex-direction: row;
@@ -7,15 +8,13 @@
   height: 100vh;
   padding: 16px;
   .form-container {
-    border-radius: 12px;
     width: 100%;
     max-width: 500px;
     height: auto;
     max-height: 90vh;
     overflow: auto;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    background-color: rgba(255, 255, 255, 0.7);
     padding: 50px 40px;
+    @include primarySectionContainer;
     .form-title {
       font-size: 4rem;
       font-weight: bold;

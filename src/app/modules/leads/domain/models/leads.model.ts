@@ -1,8 +1,8 @@
 export interface LeadsResponse {
-  results:   Result[];
+  results:   Lead[];
   paging:    Paging;
-  date_from: Date;
-  date_to:   Date;
+  date_from: string;
+  date_to:   string;
 }
 
 export interface Paging {
@@ -11,19 +11,19 @@ export interface Paging {
   total:  number;
 }
 
-export interface Result {
+export interface Lead {
   id:      number;
   item_id: string;
   name:    string;
   email:   string;
   phone:   string;
-  leads:   Lead[];
+  leads:   Contact[];
 }
 
-export interface Lead {
+export interface Contact {
   id:           string;
   contact_type: string;
-  created_at:   Date;
+  created_at:   string;
   external_id:  string;
   item_id:      string;
   buyer_id:     number;

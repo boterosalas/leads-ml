@@ -1,0 +1,38 @@
+.leads-filter-panel {
+  .mat-mdc-dialog-surface {
+    border-radius: 0px;
+  }
+  mat-dialog-container,
+  .mat-mdc-dialog-container {
+    padding: 0;
+    margin: 0;
+    animation: slideInFromRight 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  /* * Angular Material añade esta clase automáticamente ANTES de empezar a cerrar.
+   * La usamos para disparar NUESTRA animación de salida.
+   */
+  &.mat-dialog-closing mat-dialog-container,
+  &.mat-mdc-dialog-closing .mat-mdc-dialog-container {
+    animation: slideOutToRight 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+}
+/* Define la animación de entrada */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Define la animación de salida */
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
