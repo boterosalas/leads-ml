@@ -6,7 +6,7 @@ export const MockLeadsResponse: LeadsResponse = {
   paging: {
     offset: 0,
     limit: 10,
-    total: 100,
+    total: 4323,
   },
   date_from: '2024-05-14',
   date_to: '2024-05-24',

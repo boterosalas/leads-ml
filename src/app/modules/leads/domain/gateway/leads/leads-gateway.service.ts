@@ -3,4 +3,5 @@ import { LeadsResponse } from '../../models/leads.model';
 
 export abstract class LeadsGatewayService {
   abstract get(params: any): Observable<LeadsResponse>;
+  abstract download(fileType: 'xlsx' | 'csv'): Observable<any>;
 }

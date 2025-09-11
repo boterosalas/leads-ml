@@ -3,7 +3,11 @@
     <div class="leads-table__header">
       <h1>LEADS</h1>
       <div class="leads-table__btn-actions">
-        <button mat-button class="leads_table__button-download">
+        <button
+          mat-button
+          class="leads_table__button-download"
+          (click)="download()"
+        >
           <span class="leads-table__button-label">Descargar</span>
           <mat-icon>download</mat-icon>
         </button>

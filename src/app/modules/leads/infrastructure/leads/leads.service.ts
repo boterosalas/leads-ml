@@ -12,6 +12,7 @@ import { MockLeadsResponse } from '../../domain/mocks/leads';
 })
 export class LeadsService implements LeadsGatewayService {
   private _proxy = inject(ProxyService);
+  private _httpClient = inject(HttpClient);
 
   get(params: any): Observable<LeadsResponse> {
     return of(MockLeadsResponse);
@@ -45,5 +46,17 @@ export class LeadsService implements LeadsGatewayService {
     return new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
+  }
+
+  download(fileType: 'xlsx' | 'csv'): Observable<any> {
+    const params = {
+      data: MockLeadsResponse.results,
+      fileType,
+    };
+    return this._httpClient.post(
+      'https://rb2gfds5ed.execute-api.us-east-1.amazonaws.com/download-file/',
+      params,
+      { responseType: 'blob' }
+    );
   }
 }

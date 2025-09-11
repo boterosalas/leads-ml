@@ -45,4 +45,24 @@ export class LeadsComponent implements OnInit {
       panelClass: 'leads-filter-panel',
     });
   }
+
+  download() {
+    const fileType = 'xlsx';
+    this.leadsService.download(fileType).subscribe({
+      next: (blob) => {
+        const fileName = fileType === 'xlsx' ? 'archivo.xlsx' : 'archivo.csv';
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Error al descargar archivo:', err);
+      },
+    });
+  }
 }
