@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { A11yModule } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
   FormControl,
   FormGroup,
@@ -15,6 +15,9 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { leadsRequestMapper } from '../../../infrastructure/leads/leads-request-mapper';
 
 @Component({
   selector: 'app-leads-filter',
@@ -38,7 +41,7 @@ export class LeadsFilterComponent implements OnInit {
   private filterForm!: FormGroup;
   startDateControl = new FormControl('');
   endDateControl = new FormControl('');
-  contactTypeControl = new FormControl('');
+  contactTypesControl = new FormControl('');
   itemIdControl = new FormControl('');
   buyerIdControl = new FormControl('');
   contactTypes = [
@@ -49,6 +52,7 @@ export class LeadsFilterComponent implements OnInit {
   ];
   buyerIds = signal<string[]>([]);
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  private dialogRef = inject(MatDialogRef<LeadsFilterComponent>);
 
   ngOnInit(): void {
     this.createForm();
@@ -58,11 +62,9 @@ export class LeadsFilterComponent implements OnInit {
     this.filterForm = new FormGroup({
       startDate: this.startDateControl,
       endDate: this.endDateControl,
-      contactType: this.contactTypeControl,
+      contactTypes: this.contactTypesControl,
       itemId: this.itemIdControl,
-      buyerId: this.buyerIdControl,
     });
-    this.filterForm.valueChanges.subscribe(console.log);
   }
 
   add(event: MatChipInputEvent): void {
@@ -87,5 +89,19 @@ export class LeadsFilterComponent implements OnInit {
       fruits.splice(index, 1);
       return [...fruits];
     });
+  }
+
+  closeModal(event: 'save' | 'cancel') {
+    if (event === 'save') {
+      const params = leadsRequestMapper({
+        ...this.filterForm.value,
+        buyerIds: this.buyerIds(),
+      });
+      this.dialogRef.close(params);
+      return;
+    }
+    // if event === cancel
+    this.dialogRef.close(null);
+    return;
   }
 }

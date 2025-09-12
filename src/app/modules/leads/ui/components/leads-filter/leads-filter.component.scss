@@ -1,8 +1,23 @@
+@import "variables";
 .leads-filter {
   padding: 60px 24px 30px;
   .leads-filter__form {
     .leads-filter__form-field {
       width: 100%;
+      margin-bottom: 20px;
+    }
+    .leads-filter__btn-group {
+      display: flex;
+      gap: 20px;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      .leads-filter__btn-cancel {
+        color: $primary-blue !important;
+      }
+      .leads-filter__btn-save {
+        background-color: $primary-blue !important;
+      }
     }
   }
 }

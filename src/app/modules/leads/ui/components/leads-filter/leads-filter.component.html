@@ -3,7 +3,7 @@
   <form class="leads-filter__form">
     <!-- Rango de fechas -->
     <mat-form-field class="leads-filter__form-field" appearance="outline">
-      <mat-label>Enter a date range</mat-label>
+      <mat-label>Rango de fechas</mat-label>
       <mat-date-range-input [rangePicker]="rangePicker">
         <input
           matStartDate
@@ -30,8 +30,8 @@
     </mat-form-field>
     <!-- Tipo de contacto -->
     <mat-form-field class="leads-filter__form-field" appearance="outline">
-      <mat-label>Contact types</mat-label>
-      <mat-select name="food" [formControl]="contactTypeControl">
+      <mat-label>Tipo de contacto</mat-label>
+      <mat-select name="food" [formControl]="contactTypesControl" multiple>
         @for (type of contactTypes; track type) {
         <mat-option [value]="type.value">{{ type.label }}</mat-option>
         }
@@ -54,7 +54,7 @@
     </mat-form-field>
     <!-- Buyer ID -->
     <mat-form-field class="leads-filter__form-field" appearance="outline">
-      <mat-label>Buyer Id(s)</mat-label>
+      <mat-label>Id(s) Comprador(es)</mat-label>
       <mat-chip-grid #chipGrid aria-label="Ingresa buyer ids">
         @for (buyerId of buyerIds(); track buyerId) {
         <mat-chip-row
@@ -77,5 +77,21 @@
         />
       </mat-chip-grid>
     </mat-form-field>
+    <div class="leads-filter__btn-group">
+      <button
+        class="leads-filter__btn-cancel"
+        mat-stroked-button
+        (click)="closeModal('cancel')"
+      >
+        Cancelar
+      </button>
+      <button
+        class="leads-filter__btn-save"
+        mat-flat-button
+        (click)="closeModal('save')"
+      >
+        Buscar
+      </button>
+    </div>
   </form>
 </div>
