@@ -26,7 +26,7 @@ export class LeadsService implements LeadsGatewayService {
       const request: ProxyRequest = {
         method: 'GET',
         url: `https://api.mercadolibre.com/vis/users/${id}/leads/buyers`,
-        data: leadsRequestMapper(params),
+        params: leadsRequestMapper(params),
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${access_token}`,
